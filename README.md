@@ -1,5 +1,5 @@
 # Blockly type indicator
-A indicator for google's visual programmin framework blockly that shows where a currently dragged block can be attached.
+A indicator for google's visual programming framework [blockly](https://github.com/google/blockly) that shows where a currently dragged block can be attached.
 
 ![The type indicator](http://tinly.de/typeIndicator.png "The type indicator")
 
