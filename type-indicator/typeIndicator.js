@@ -176,15 +176,16 @@
   '.blocklyTypeHighlightedConnectionPath {',
   '  fill: none;',
   '  stroke: #FC3;',
-  '  stroke-width: 4px;',
-	'  opacity: 0.6;',
+  '  stroke-width: 2px;',
+	'  opacity: 1;',
   '}');
 
  // Change googles indicator color
  Blockly.Css.CONTENT.push(
   '.blocklyHighlightedConnectionPath {',
   '  stroke: #FC3;',
-	'  opacity: 0.9;',
+	'  stroke-width: 4px;',
+	'  opacity: 1;',
   '}');
 
  // Add some styling to the occupied type indicator
@@ -193,7 +194,7 @@
   '  fill: none;',
   '  stroke: #FC3;',
   '  stroke-width: 2px;',
-  '  opacity: 0.6;',
+  '  opacity: 1;',
   '}');
 
 
@@ -254,7 +255,6 @@ Blockly.Css.addRule = function(selector, content){
 	 if(!occupiedStyles){
 	 	occupiedStyle = Blockly.Css.addRule(".blocklyOccupiedTypeHighlightedConnectionPath", "");
 		occupiedStyle.strokeWidth = "2px";
-		occupiedStyle.opacity = "0.6";
 		occupiedStyle.fill = "none";
 	} else
 		occupiedStyle = occupiedStyles[occupiedStyles.length-1];
