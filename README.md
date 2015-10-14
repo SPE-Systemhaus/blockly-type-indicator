@@ -6,6 +6,6 @@ Each plugin has it's own folder in the repositories root. See our wiki for more 
  * [Type Indicator](https://github.com/HendrikD/blockly-plugins/wiki/Type-Indicator)
 
 # Installation
-All our plugins can be installed by adding a script tag pointing to the javascript file to your site (after the other blockly scripts):
+All plugins can be installed by adding a script tag pointing to the javascript file to your site (after the other blockly scripts):
 ```html
 <script src="thePlugin.js"></script>
