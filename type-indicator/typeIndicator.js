@@ -73,7 +73,7 @@
 		var inCon = null;
     if (this_.outputConnection) {
      outCon = this_.outputConnection;
-     typ = "input"; 
+     typ = "input";
     }if (this_.previousConnection) {
      outCon = this_.previousConnection;
      typ = "statement";
@@ -175,22 +175,89 @@
  Blockly.Css.CONTENT.push(
   '.blocklyTypeHighlightedConnectionPath {',
   '  fill: none;',
-  '  stroke: #fc3;',
+  '  stroke: #FC3;',
   '  stroke-width: 4px;',
+	'  opacity: 0.6;',
+  '}');
+
+ // Change googles indicator color
+ Blockly.Css.CONTENT.push(
+  '.blocklyHighlightedConnectionPath {',
+  '  stroke: #FC3;',
+	'  opacity: 0.9;',
   '}');
 
  // Add some styling to the occupied type indicator
  Blockly.Css.CONTENT.push(
   '.blocklyOccupiedTypeHighlightedConnectionPath {',
   '  fill: none;',
-  '  stroke: #fd4;',
+  '  stroke: #FC3;',
   '  stroke-width: 2px;',
   '  opacity: 0.6;',
   '}');
 
- // Change googles indicator color
- Blockly.Css.CONTENT.push(
-  '.blocklyHighlightedConnectionPath {',
-  '  stroke: #5F6;',
-  '}');
+
+/**
+ * Creates an array of CSSStyleDeclaration that contains all blockly styles that have exactly the given selector.
+ * @param  {String} selector The selector
+ * @return {Array}          Array containing the CSSStyleDeclarations
+ */
+Blockly.Css.getStylesBySelector = function(selector){
+	var rules = Blockly.Css.styleSheet_.rules;
+	var styles = [];
+	for (var i = 0; i < rules.length; i++) {
+		if(rules[i].selectorText === selector)
+			styles.push(rules[i].style);
+	}
+	return styles.length>0?styles:false;
+};
+
+/**
+ * Adds a rule to Blocklys css.
+ * @param  {String} selector The rules selector
+ * @param  {String} content  The content of the rule (without curly parenthesis)
+ * @return {CSSStyleDeclaration} the css style of the rule.
+ */
+Blockly.Css.addRule = function(selector, content){
+	var id = Blockly.Css.styleSheet_.insertRule(selector + "{\n" + content + "\n}\n", Blockly.Css.styleSheet_.length);
+	return Blockly.Css.styleSheet_.rules[id].style;
+};
+
+/**
+ * Sets the colour of the indicators
+ * @param  {String} near     The colour for the indicator that appears on a connection to which a dregged block connects if released
+ * @param  {String} far      The colour for the indicator that appears on type compatible blocks that are not occupied
+ * @param  {String} occupied The colour for the indicator that appears on type compatible blocks that are occupied
+ */
+ Blockly.Css.setTypeIndicatorColours = function(near, far, occupied){
+	 var nearStyles = Blockly.Css.getStylesBySelector(".blocklyTypeHighlightedConnectionPath");
+	 var nearStyle;
+	 if(!nearStyles){
+			nearStyle = Blockly.Css.addRule(".blocklyTypeHighlightedConnectionPath", "");
+			nearStyle.strokeWidth = "4px";
+			nearStyle.fill = "none";
+		} else
+			nearStyle = nearStyles[nearStyles.length-1];
+	 	nearStyle.stroke = near;
+
+	 var farStyles = Blockly.Css.getStylesBySelector(".blocklyHighlightedConnectionPath");
+	 var farStyle;
+	 if(!farStyles){
+		 farStyle = Blockly.Css.addRule(".blocklyHighlightedConnectionPath", "");
+		 farStyle.fill = "none";
+	 } else
+	 	farStyle = farStyles[farStyles.length-1];
+	 farStyle.stroke = far;
+
+	 var occupiedStyles = Blockly.Css.getStylesBySelector(".blocklyOccupiedTypeHighlightedConnectionPath");
+	 var occupiedStyle;
+	 if(!occupiedStyles){
+	 	occupiedStyle = Blockly.Css.addRule(".blocklyOccupiedTypeHighlightedConnectionPath", "");
+		occupiedStyle.strokeWidth = "2px";
+		occupiedStyle.opacity = "0.6";
+		occupiedStyle.fill = "none";
+	} else
+		occupiedStyle = occupiedStyles[occupiedStyles.length-1];
+	occupiedStyle.stroke = occupied;
+};
 })();
