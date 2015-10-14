@@ -1,7 +1,7 @@
 # Blockly plugins
 This repository is a collection of different plugins for google's visual programming framework [blockly](https://github.com/google/blockly).
 
-Each plugin has it's own folder in the repositories root. See our wiki for more information on the plugins:
+Each plugin has it's own folder in the repositories root. See the wiki for more information on the plugins:
 
  * [Type Indicator](https://github.com/HendrikD/blockly-plugins/wiki/Type-Indicator)
 
