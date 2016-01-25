@@ -62,7 +62,6 @@
  var oldOnMouseMove_ = Blockly.BlockSvg.prototype.onMouseMove_;
  Blockly.BlockSvg.prototype.onMouseMove_ = function(e) {
   var this_ = this; // we need to save the this context so the command beeing created can access it
-  Blockly.doCommand(function() {
    if (Blockly.dragMode_ == 2 && !draggingWorkspace) { // Only on first drag move
     draggingWorkspace = this_.workspace;
     // If this is a Value block we need to check the outputConnection,
@@ -119,7 +118,6 @@
 
 		}
    }
-  });
   // Call googles onMouseMove_() so it can do the rest
   oldOnMouseMove_.call(this, e);
  };
