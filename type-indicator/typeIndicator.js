@@ -27,8 +27,8 @@
   * @return {undefined}
   */
  // Store google's terminateDrag in a variable so we can expand it.
- var oldTerminateDrag_ = Blockly.BlockSvg.terminateDrag_;
- Blockly.BlockSvg.terminateDrag_ = function() {
+ var oldTerminateDrag = Blockly.BlockSvg.terminateDrag;
+ Blockly.BlockSvg.terminateDrag = function() {
   // Only if the user was dragging
   if (draggingWorkspace) {
    // Go through all the blocks
@@ -49,7 +49,7 @@
    draggingWorkspace = null;
   }
   // call the original terminateDrag_ so it can do its job
-  oldTerminateDrag_();
+  oldTerminateDrag();
  };
 
  /**
