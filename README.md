@@ -5,6 +5,7 @@ Each plugin has it's own folder in the repositories root. See the wiki for more 
 
  * [Type Indicator](https://github.com/HendrikD/blockly-plugins/wiki/Type-Indicator)
  * [SVG Icons](https://github.com/HendrikD/blockly-plugins/wiki/svg-icons)
+ * [Shadow Autoreplacer](https://github.com/HendrikD/blockly-plugins/wiki/shadow-autoreplacer)
 
 # Installation
 All plugins can be installed by adding a script tag pointing to the javascript file to your site (after the other blockly scripts):
