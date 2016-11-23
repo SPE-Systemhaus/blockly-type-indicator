@@ -1,0 +1,21 @@
+{
+  "name": "blockly-type-indicator",
+  "homepage": "https://github.com/HendrikD/blockly-plugins",
+  "authors": [
+    "Hendrik <diel.hendrik@gmail.com>"
+  ],
+  "description": "Visually highlights type compatible connetion for dragged blocks in Googles visual programming framework Blockly.",
+  "main": "typeIndicator.js",
+  "keywords": [
+    "Google",
+    "Blockly"
+  ],
+  "license": "Apache 2.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
