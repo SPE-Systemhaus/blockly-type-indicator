@@ -26,5 +26,5 @@ bower install --save blockly-type-indicator
 Add `typeIndicator.js` to your `index.html` *after* all the other blockly scripts.
 
 ```
-<script src="bower_components/blockly-type-indicatorr/typeIndicator.js"></script>
+<script src="bower_components/blockly-type-indicator/typeIndicator.js"></script>
 ```
