@@ -1,13 +1,16 @@
-# Blockly plugins
-This repository is a collection of different plugins for google's visual programming framework [blockly](https://github.com/google/blockly).
+A indicator for google's visual programming framework [blockly](https://github.com/google/blockly) that shows where a currently dragged block can be attached.
 
-Each plugin has it's own folder in the repositories root. See the wiki for more information on the plugins:
+![The type indicator](http://tinly.de/typeIndicator.gif "The type indicator")
 
- * [Type Indicator](https://github.com/HendrikD/blockly-plugins/wiki/Type-Indicator)
- * [SVG Icons](https://github.com/HendrikD/blockly-plugins/wiki/svg-icons)
- * [Shadow Autoreplacer](https://github.com/HendrikD/blockly-plugins/wiki/shadow-autoreplacer)
+Here you can see a text block beeing draged into a comparison block's connection. Since their types are compatible it is highlighted and because the string block is within connection range it is highlighted green. The other connection on the comparison block is yellow highlighted because it's not in range. The connection on the variable set block is highlighted with a thin line because it's already occupied.
 
-# Installation
-All plugins can be installed by adding a script tag pointing to the javascript file to your site (after the other blockly scripts):
+The indicator can be included to any blockly project simply by appending a script tag to the index.html after any other scripts:
 ```html
-<script src="thePlugin.js"></script>
+<script src="typeIndicator.js"></script>
+```
+
+Colours can be changed by calling:
+```
+Blockly.Css.setTypeIndicatorColours(near, far, occupied)
+```
+Where near ist the colour for a connection in connecting range, far for all other type compatible connections that are not occupied and occupied for connections that are type compatible but occupied.
