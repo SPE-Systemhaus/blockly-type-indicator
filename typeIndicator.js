@@ -32,7 +32,7 @@
     var oldTerminateDrag_ = null;
     var newTerminateDrag_ = function() {
         // Only if the user was dragging
-        if (draggingWorkspace && oldTerminateDrag_ != null) {
+        if (draggingWorkspace && oldTerminateDrag_ !== null) {
             // Go through all the blocks
             var allBlocks = draggingWorkspace.getAllBlocks();
             allBlocks.forEach(function(otherBlock) {
@@ -57,10 +57,10 @@
     // save Blocklys original terminateDrag() for later. Since some functions have been renamed from underline 
     // suffixed names to ones without the underline, we check, if there is a variant without underline and 
     // take that if available.
-    if (Blockly.BlockSvg.terminateDrag != null) {
+    if (Blockly.BlockSvg.terminateDrag !== null) {
         oldTerminateDrag_ = Blockly.BlockSvg.terminateDrag;
         Blockly.BlockSvg.terminateDrag = newTerminateDrag_;
-    } else if (Blockly.BlockSvg.terminateDrag_ != null) {
+    } else if (Blockly.BlockSvg.terminateDrag_ !== null) {
         oldTerminateDrag_ = Blockly.BlockSvg.terminateDrag_;
         Blockly.BlockSvg.terminateDrag_ = newTerminateDrag_;
     }
@@ -74,7 +74,7 @@
     // Variable to hold Blockly's original onMouseMove
     var oldOnMouseMove_ = null;
     var newOnMouseMove_ = function(e) {
-        if (oldOnMouseMove_ != null) {
+        if (oldOnMouseMove_ !== null) {
             var this_ = this; // we need to save the this context so the command beeing created can access it
             if (Blockly.dragMode_ == 2 && !draggingWorkspace) { // Only on first drag move
                 draggingWorkspace = this_.workspace;
