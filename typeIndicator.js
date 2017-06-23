@@ -151,6 +151,16 @@
     }
 
 
+    /*
+    *  The position of createSvgElement() changed between different Blockly versions.
+    *  For backwards compabitility we need to check, which one is available.
+    */
+    var createSvgElement_;
+    if(Blockly.utils != undefined && Blockly.utils.createSvgElement != undefined)
+        createSvgElement_ = Blockly.utils.createSvgElement;
+    else
+        createSvgElement_ = Blockly.createSvgElement;
+
     /**
      * Creates the svg path for a highlight on a connection
      * @return {SvgElement} the created path
@@ -175,7 +185,7 @@
         var x = this.x_ - xy.x;
         var y = this.y_ - xy.y;
 
-        return Blockly.createSvgElement('path', {
+        return createSvgElement_('path', {
                 'class': type,
                 'd': steps,
                 transform: 'translate(' + x + ', ' + y + ')'
