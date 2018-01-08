@@ -1,6 +1,6 @@
 /**
     @license
-    Copyright 2015 Hendrik Diel
+    Copyright 2015-2018 SPE Systemhaus GmbH
     Licensed under the Apache License, Version 2.0 (the "License");
     you may not use this file except in compliance with the License.
     You may obtain a copy of the License at
@@ -20,19 +20,17 @@
 
 (function() {
     "use strict";
-    // keep in mind if we are dragging right now
-    var draggingWorkspace = null;
+
+    var draggingWorkspace;
 
     /**
-     * This Event is beeing called when a block is droped. We then need to remove all
+     * This Event is beeing called when a block is dropped. We then need to remove all
      * type indicators from the workspace.
      * @return {undefined}
      */
     // Variable to store Blockly's original terminateDrag().
     var oldTerminateDrag_ = null;
-    var newTerminateDrag_ = function() {
-        // Only if the user was dragging
-        if (draggingWorkspace && oldTerminateDrag_ !== null) {
+    var newTerminateDrag_ = function(a, b, c) {
             // Go through all the blocks
             var allBlocks = draggingWorkspace.getAllBlocks();
             allBlocks.forEach(function(otherBlock) {
@@ -47,23 +45,12 @@
                     }
                 });
             });
-            //now theres no workspace in which the user is dragging
-            draggingWorkspace = null;
-        }
         // call the original terminateDrag_ so it can do its job
-        oldTerminateDrag_();
+        oldTerminateDrag_.call(this, a, b, c);
     };
 
-    // save Blocklys original terminateDrag() for later. Since some functions have been renamed from underline 
-    // suffixed names to ones without the underline, we check, if there is a variant without underline and 
-    // take that if available.
-    if (Blockly.BlockSvg.terminateDrag !== null) {
-        oldTerminateDrag_ = Blockly.BlockSvg.terminateDrag;
-        Blockly.BlockSvg.terminateDrag = newTerminateDrag_;
-    } else if (Blockly.BlockSvg.terminateDrag_ !== null) {
-        oldTerminateDrag_ = Blockly.BlockSvg.terminateDrag_;
-        Blockly.BlockSvg.terminateDrag_ = newTerminateDrag_;
-    }
+        oldTerminateDrag_ = Blockly.BlockDragger.prototype.endBlockDrag;
+        Blockly.BlockDragger.prototype.endBlockDrag = newTerminateDrag_;
 
     /**
      * Creates the indicators on the first mouse move of an drag since all the
@@ -71,12 +58,11 @@
      * along with the blocks.
      * @type {undefined}
      */
-    // Variable to hold Blockly's original onMouseMove
-    var oldOnMouseMove_ = null;
-    var newOnMouseMove_ = function(e) {
-        if (oldOnMouseMove_ !== null) {
-            var this_ = this; // we need to save the this context so the command beeing created can access it
-            if (Blockly.dragMode_ == 2 && !draggingWorkspace) { // Only on first drag move
+    // Variable to hold Blockly's original startBlockDrag
+    var oldStartBlockDrag_ = null;
+    var startBlockDrag = function(e) {
+        if (oldStartBlockDrag_ !== null) {
+            var this_ = Blockly.selected; // we need to save the this context so the command beeing created can access it
                 draggingWorkspace = this_.workspace;
                 // If this is a Value block we need to check the outputConnection,
                 // otherwise its a statement connection so we need the previousConnection
@@ -131,24 +117,17 @@
                                 otherConn.typeHighlightSvgPath = otherConn.typeHighlight('blocklyOccupiedTypeHighlightedConnectionPath');
                         }
                     });
-
-                }
             }
         }
-        // Call googles onMouseMove_() so it can do the rest
-        oldOnMouseMove_.call(this, e);
+        // Call googles startBlockDrag() so it can do the rest
+        oldStartBlockDrag_.call(this, e);
     };
 
     // save Blocklys original OnMouseMove() for later. Since some functions have been renamed from underline 
     // suffixed names to ones without the underline, we check, if there is a variant without underline and 
     // take that if available.
-    if (Blockly.BlockSvg.prototype.onMouseMove) {
-        oldOnMouseMove_ = Blockly.BlockSvg.prototype.onMouseMove;
-        Blockly.BlockSvg.prototype.onMouseMove = newOnMouseMove_;
-    } else if (Blockly.BlockSvg.prototype.onMouseMove_) {
-        oldOnMouseMove_ = Blockly.BlockSvg.prototype.onMouseMove_;
-        Blockly.BlockSvg.prototype.onMouseMove_ = newOnMouseMove_;
-    }
+    oldStartBlockDrag_ = Blockly.BlockDragger.prototype.startBlockDrag;
+    Blockly.BlockDragger.prototype.startBlockDrag = startBlockDrag;
 
 
     /*
